@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link the Copper panel</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/satoshi" />
+    <link rel="stylesheet" href="/static/phone.css" />
+  </head>
+  <body>
+    <!-- Opened by the Vobiz panel in Copper. It asks the softphone tab open in
+         this browser for a panel link, and hands it to the panel that opened
+         this window (same origin only). -->
+    <div class="main">
+      <section class="step">
+        <div class="step-head">
+          <h2 class="step-title">Link the Copper panel</h2>
+        </div>
+        <p id="pair-status" class="step-help">Looking for your softphone…</p>
+        <div class="actions">
+          <a id="pair-open" class="btn btn-primary" href="/phone" target="vobiz-softphone" hidden>Open the softphone</a>
+          <button id="pair-retry" class="btn btn-secondary" type="button" hidden>Try again</button>
+          <button id="pair-close" class="btn btn-secondary" type="button">Close</button>
+        </div>
+      </section>
+    </div>
+    <script src="/static/pair.js"></script>
+  </body>
+</html>

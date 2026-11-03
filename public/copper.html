@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vobiz Calling</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/satoshi" />
+    <link rel="stylesheet" href="/static/phone.css" />
+  </head>
+  <body>
+    <!-- The Vobiz panel inside Copper: an embedded app in the action bar
+         (and in any record sidebar it is added to), with {"voip": true} so
+         Copper's phone numbers are clickable. It never holds a call. It sends
+         a clicked number to the agent's softphone tab, which asks before it
+         dials. -->
+    <div class="main">
+      <header class="app-header">
+        <div class="brand">
+          <svg class="brand-mark" width="28" height="20" viewBox="0 0 42 30" fill="none" aria-hidden="true" focusable="false">
+            <path d="M42 14.7458V0C24.5641 0 12 13.7288 12 30H27.1282C27.1282 21.3559 33.5385 14.7458 42 14.7458Z" fill="#E83C00"/>
+            <path d="M0 15V0C9.28572 0 15 6.42857 15 15H0Z" fill="#E86A00"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">vobiz</span>
+            <span class="brand-product">Calling for Copper</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="status" class="status-badge is-pending">Not linked</span>
+        </div>
+      </header>
+
+      <p id="status-message" class="status-message is-pending" role="status" hidden></p>
+
+      <!-- Not framed by Copper: say so and do nothing else. -->
+      <section class="step" id="view-outside" hidden>
+        <div class="step-head"><h2 class="step-title">Open this inside Copper</h2></div>
+        <p class="step-help">
+          This is the Vobiz panel for Copper's action bar. A Copper admin adds it
+          under Settings, Integrations, "Create an embedded app". Agents place
+          and take calls in the <a href="/phone" target="_blank" rel="noopener">softphone</a>.
+        </p>
+      </section>
+
+      <!-- Framed, not linked to a softphone yet. -->
+      <section class="step" id="view-unlinked" hidden>
+        <div class="step-head"><h2 class="step-title">Link to your softphone</h2></div>
+        <p class="step-help">
+          Open the <a href="/phone" target="_blank" rel="noopener">Vobiz softphone</a> in this
+          browser and connect Copper there. Then link this panel once: clicking a
+          phone number in Copper sends it to your softphone, ready to call.
+        </p>
+        <div class="actions">
+          <button id="btn-link" class="btn btn-primary" type="button">Link to my softphone</button>
+        </div>
+        <p id="link-hint" class="hint"></p>
+      </section>
+
+      <!-- Linked. -->
+      <div id="view-linked" hidden>
+        <section class="step">
+          <div class="step-head step-head-split">
+            <h2 class="step-title">Softphone</h2>
+            <button id="btn-unlink" class="link-btn" type="button">Unlink</button>
+          </div>
+          <p id="who" class="step-help"></p>
+          <p id="softphone-state" class="hint"></p>
+          <div class="actions">
+            <a id="btn-open-phone" class="btn btn-secondary" href="/phone" target="_blank" rel="noopener">Open the softphone</a>
+          </div>
+        </section>
+
+        <section class="step" id="step-record" hidden>
+          <div class="step-head"><h2 class="step-title" id="record-title">This record</h2></div>
+          <ul id="record-phones" class="history-list"></ul>
+          <p id="record-hint" class="hint"></p>
+        </section>
+
+        <section class="step">
+          <div class="step-head"><h2 class="step-title">Call a number</h2></div>
+          <form id="form-dial" autocomplete="off">
+            <div class="form-group">
+              <label class="field-label" for="in-dial">Number</label>
+              <input type="tel" id="in-dial" class="input input-mono" placeholder="+91 XXXXX XXXXX" inputmode="tel" />
+            </div>
+            <button class="btn btn-primary" type="submit">Send to softphone</button>
+          </form>
+          <p class="hint">Or click any phone number in Copper.</p>
+        </section>
+      </div>
+    </div>
+    <script src="/static/lib/copper-sdk.min.js"></script>
+    <script src="/static/copper.js"></script>
+  </body>
+</html>
